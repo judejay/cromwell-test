@@ -1,4 +1,4 @@
-const { CONFIG } = require("./config");
+const CONFIG = require("./config");
 const express = require("express");
 const { sequelize } = require("./database/database");
 const authRouter = require("./route/authRoute");

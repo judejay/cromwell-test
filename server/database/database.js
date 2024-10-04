@@ -1,12 +1,11 @@
 const { Sequelize } = require("sequelize");
-const { CONFIG } = require("../config");
+const CONFIG = require("../config");
 
-//const sequelize = new Sequelize(CONFIG.databaseUrl);
+const sequelize = new Sequelize(
+  CONFIG.db_name,
+  CONFIG.db_username,
+  CONFIG.db_password,
+  CONFIG.dialect
+);
 
-// try {
-//   await sequelize.authenticate();
-//   console.log("Connection has been established successfully.");
-// } catch (error) {
-//   console.error("Unable to connect to the database:", error);
-// }
-//module.exports = { sequelize };
+module.exports = sequelize;
