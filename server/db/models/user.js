@@ -2,6 +2,7 @@
 const { Model } = require("sequelize");
 const Sequelize = require("sequelize");
 const sequelize = require("../../database/database");
+
 module.exports = sequelize.define(
   "user",
   {
@@ -18,7 +19,16 @@ module.exports = sequelize.define(
       type: Sequelize.STRING,
     },
     password: {
-      type: Sequelize.STRING,
+      type: Sequelize.DataTypes.STRING,
+    },
+    confirmPassword: {
+      type: Sequelize.DataTypes.VIRTUAL,
+      set(value) {
+        if (this.password !== value) {
+          throw new Error("Password and Confirm Password do not match");
+        }
+        return this.setDataValue("confirmPassword", value);
+      },
     },
     email: {
       type: Sequelize.STRING,
@@ -35,6 +45,7 @@ module.exports = sequelize.define(
       type: Sequelize.DATE,
     },
   },
+
   {
     paranoid: true,
     sequelize,

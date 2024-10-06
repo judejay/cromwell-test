@@ -11,6 +11,7 @@ const CONFIG = {
   db_port: process.env.DB_PORT,
   dialect: "postgres",
   seederStorage: "sequelize",
+  JWT_SECRET: process.env.JWT_SECRET,
 };
 
 module.exports = CONFIG;
