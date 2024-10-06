@@ -46,7 +46,6 @@ module.exports = sequelize.define(
     },
   },
 
-  // beforewe create a new user, we need to hash the password
   {
     hooks: {
       beforeCreate: async (user) => {
