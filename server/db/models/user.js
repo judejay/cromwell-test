@@ -46,7 +46,16 @@ module.exports = sequelize.define(
     },
   },
 
+  // beforewe create a new user, we need to hash the password
   {
+    hooks: {
+      beforeCreate: async (user) => {
+        const bcrypt = require("bcrypt");
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(user.password, saltRounds);
+        user.password = hash;
+      },
+    },
     paranoid: true,
     sequelize,
     freezeTableName: true,
