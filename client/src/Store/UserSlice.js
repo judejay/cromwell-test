@@ -16,14 +16,20 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (userCredentials) => {
-    const request = await axios.post(
-      "http://localhost:3000/api/v1/auth/login",
-      userCredentials
-    );
-    const response = await request.data.data;
-    localStorage.setItem("token", response.token);
-    return response;
+  async (userCredentials, { rejectWithValue }) => {
+    try {
+      const request = await axios.post(
+        "http://localhost:3000/api/v1/auth/login",
+        userCredentials
+      );
+      const response = request.data;
+      console.log("response", response);
+      localStorage.setItem("token", response.token);
+      return response;
+    } catch (error) {
+      // Return a rejected action with a custom error message
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
 );
 
