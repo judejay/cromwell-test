@@ -2,6 +2,7 @@ const CONFIG = require("./config");
 const express = require("express");
 const { sequelize } = require("./database/database");
 const authRouter = require("./route/authRoute");
+
 const app = express();
 app.use(express.json());
 const cors = require("cors");

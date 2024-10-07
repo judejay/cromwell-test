@@ -17,7 +17,6 @@ import { useNavigate } from 'react-router-dom';
         let userCredentials = {email, password}
         dispatch(loginUser(userCredentials))
         .then((response) => {
-            console.log("response", response)
             if(response.payload.token) {
 
 try { 

@@ -17,8 +17,7 @@ const login = async (req, res, next) => {
   }
 
   const result = await user.findOne({ where: { email } });
-  //console.log(result);
-  //console.log("result");
+
   if (!result || !(await bcrypt.compare(password, result.password))) {
     return next(new AppError("Incorrect email or password", 401));
   }
@@ -26,7 +25,6 @@ const login = async (req, res, next) => {
   const token = generateToken({
     id: result.id,
   });
-  console.log("token", token);
 
   return res.json({
     status: "success",
