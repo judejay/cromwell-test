@@ -5,7 +5,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (userDetails) => {
     const request = await axios.post(
-      "http://localhost:3000/api/v1/auth/register",
+      "http://localhost:3000/api/v1/auth/signup",
       userDetails
     );
     const response = await request.data.data;

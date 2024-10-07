@@ -30,9 +30,9 @@ const Register = () => {
   return (
     <form className="form-group custom-form" onSubmit={handleSubmit}>
         <label htmlFor="firstName" >FirstName</label>
-        <input type="text" required  value={userDetails.firstName} id="firstName" onChange={handleChange} className="form-control" />
+        <input type="text" required name='firstName' value={userDetails.firstName} id="firstName" onChange={handleChange} className="form-control" />
         <label htmlFor="lastName">LastName</label>
-        <input type="text" required id="lastName" value={userDetails.lastName}  onChange={handleChange} className="form-control" />
+        <input type="text" required id="lastName" name='lastName' value={userDetails.lastName}  onChange={handleChange} className="form-control" />
         <label htmlFor="email">Email</label>
         <input type="email"  
         name="email"
@@ -44,8 +44,8 @@ const Register = () => {
         <label htmlFor="password">Password</label>
         <input type="password" name='password' required id="password" value={userDetails.password} onChange={handleChange} className="form-control" 
         />
-        <label htmlFor="password">Confirm Password</label>
-        <input type="password" name='confirm-password' required id="password"  onChange={handleChange} className="form-control" 
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input type="password" name='confirmPassword' value={userDetails.confirmPassword} required id="confirmPassword"  onChange={handleChange} className="form-control" 
         />
         <button className='btn btn-primary' type="submit" disabled={loading}>
         {loading ? 'Registering...' : 'Register'}

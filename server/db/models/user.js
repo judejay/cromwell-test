@@ -2,7 +2,7 @@
 const { Model } = require("sequelize");
 const Sequelize = require("sequelize");
 const sequelize = require("../../database/database");
-
+const AppError = require("../../utils/appError");
 module.exports = sequelize.define(
   "user",
   {
