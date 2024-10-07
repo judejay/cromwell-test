@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Store/userSlice";
-import { navigate } from '@reach/router';
+import { useNavigate } from 'react-router-dom';
 
  const Login = () => {
 
@@ -9,6 +9,7 @@ import { navigate } from '@reach/router';
     const [password, setPassword] = useState('')
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.user)
+    const navigate = useNavigate();
 
     const handleFormSubmission = (e) => {
         e.preventDefault()

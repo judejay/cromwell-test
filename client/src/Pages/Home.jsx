@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
   return (
     <>
     <Link to="/login" className="btn btn-primary">LOGIN</Link>
+    <Link to="/register" className="btn btn-primary">REGISTER</Link>
     
     </>
   )
