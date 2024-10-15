@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-const CONFIG = {
+const AppCONFIG = {
+  client: "http://localhost:5173",
   nodeEnv: process.env.NODE_ENV ?? "dev",
   port: process.env.PORT ?? 3000,
   db_Url: process.env.DATABASE_URL,
@@ -15,4 +16,4 @@ const CONFIG = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
 };
 
-module.exports = CONFIG;
+module.exports = AppCONFIG;

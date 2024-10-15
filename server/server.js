@@ -1,22 +1,18 @@
-const CONFIG = require("./config");
+const AppCONFIG = require("./appConfig");
 const express = require("express");
-const { sequelize } = require("./database/database");
 const authRouter = require("./route/authRoute");
 
 const app = express();
 app.use(express.json());
 const cors = require("cors");
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: AppCONFIG.client,
   optionsSuccessStatus: 200,
 };
-const PORT = parseInt(CONFIG.port) || 3000;
-const NODE_ENV = CONFIG.nodeEnv || "dev";
-app.use(cors(corsOptions));
+const PORT = parseInt(AppCONFIG.port) || 3000;
+const NODE_ENV = AppCONFIG.nodeEnv || "dev";
 
-app.get("/api", (req, res) => {
-  res.json({ fruits: ["apple", "banana"] });
-});
+app.use(cors(corsOptions));
 
 app.use("/api/v1/auth", authRouter);
 

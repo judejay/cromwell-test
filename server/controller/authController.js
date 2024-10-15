@@ -1,7 +1,7 @@
 const userService = require("../services/user.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const CONFIG = require("../config");
+const CONFIG = require("../appConfig.js");
 const AppError = require("../utils/appError");
 
 const generateToken = (payload) => {
