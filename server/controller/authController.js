@@ -1,73 +1,34 @@
-const user = require("../db/models/user");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const AppError = require("../utils/appError");
-const CONFIG = require("../config");
+const userService = require("../services/user.js");
 
-const generateToken = (payload) => {
-  return jwt.sign(payload, CONFIG.JWT_SECRET_KEY, {
-    expiresIn: CONFIG.JWT_EXPIRES_IN,
-  });
+const signup = async (req, res, next) => {
+  try {
+    const result = await userService.signup(req);
+
+    if (result) {
+      return res.status(201).json({
+        status: "success",
+        message: "Signup successful",
+      });
+    }
+  } catch (error) {
+    return next(error);
+  }
 };
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return next(new AppError("Please provide email and password", 400));
+  try {
+    const result = await userService.login(req);
+
+    if (result) {
+      return res.status(200).json({
+        status: "success",
+        message: "Login successful",
+        token: result,
+      });
+    }
+  } catch (error) {
+    return next(error);
   }
-
-  const result = await user.findOne({ where: { email } });
-  delete result.password;
-  if (!result || !(await bcrypt.compare(password, result.password))) {
-    return next(new AppError("Incorrect email or password", 401));
-  }
-
-  const token = generateToken({
-    id: result.id,
-  });
-
-  return res.json({
-    status: "success",
-    token,
-    data: {
-      firstName: result.firstName,
-      lastName: result.lastName,
-    },
-  });
-};
-
-const signup = async (req, res, next) => {
-  const { email, password, firstName, lastName, confirmPassword } = req.body;
-
-  const newUser = await user.create({
-    email,
-    password,
-    firstName,
-    lastName,
-    confirmPassword,
-  });
-
-  const result = newUser.toJSON();
-  delete result.password;
-  delete result.confirmPassword;
-  // const generateToken = (payload) =>
-  //   jwt.sign(payload, process.env.JWT_SECRET, {
-  //     expiresIn: process.env.JWT_EXPIRES_IN,
-  //   });
-
-  // result.token = generateToken({ id: result.id });
-
-  if (!result) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Signup failed",
-    });
-  }
-  return res.status(201).json({
-    status: "success",
-    message: "Signup successful",
-    data: result,
-  });
 };
 
 module.exports = { signup, login };

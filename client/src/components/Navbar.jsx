@@ -8,7 +8,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
-    console.log("Logging out");
     dispatch(logoutUser());
     navigate("/");
   };

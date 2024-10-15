@@ -2,9 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const logoutUser = createAsyncThunk("user/logoutUser", async () => {
-  console.log("logging out user");
   localStorage.removeItem("token");
-  localStorage.removeItem("user");
   return null;
 });
 
@@ -30,11 +28,9 @@ export const loginUser = createAsyncThunk(
         userCredentials
       );
       const response = request.data;
-      console.log("response", response);
       localStorage.setItem("token", response.token);
       return response;
     } catch (error) {
-      // Return a rejected action with a custom error message
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
