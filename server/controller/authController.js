@@ -17,7 +17,7 @@ const login = async (req, res, next) => {
   }
 
   const result = await user.findOne({ where: { email } });
-
+  delete result.password;
   if (!result || !(await bcrypt.compare(password, result.password))) {
     return next(new AppError("Incorrect email or password", 401));
   }
@@ -29,6 +29,10 @@ const login = async (req, res, next) => {
   return res.json({
     status: "success",
     token,
+    data: {
+      firstName: result.firstName,
+      lastName: result.lastName,
+    },
   });
 };
 
@@ -45,12 +49,13 @@ const signup = async (req, res, next) => {
 
   const result = newUser.toJSON();
   delete result.password;
-  const generateToken = (payload) =>
-    jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
+  delete result.confirmPassword;
+  // const generateToken = (payload) =>
+  //   jwt.sign(payload, process.env.JWT_SECRET, {
+  //     expiresIn: process.env.JWT_EXPIRES_IN,
+  //   });
 
-  result.token = generateToken({ id: result.id });
+  // result.token = generateToken({ id: result.id });
 
   if (!result) {
     return res.status(400).json({

@@ -1,6 +1,7 @@
 import  { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../Store/userSlice';
+import { registerUser } from '../Store/UserSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,7 @@ const Register = () => {
   const [userDetails, setUserDetails] = useState({ firstName:'', lastName: '', email: '', password: '', confirmPassword: '' });
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUserDetails({
@@ -22,6 +24,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(userDetails));
+    navigate('/');
   };
 
  

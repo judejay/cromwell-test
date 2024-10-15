@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../Store/userSlice";
+import { logoutUser } from "../Store/UserSlice";
 const Navbar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      {user.user && <h1> Logged in {user.user.status} </h1>}
+      {user?.user?.data && <h1>{`You are logged in as ${user.user.data.firstName} ${user.user.data.lastName}`}  </h1>}
       <ul>
         {!user.user && currentPath !== "/" && (
           <Link to="/" className="btn btn-primary">
